@@ -1,2 +1,3 @@
-# Verifycode_ocr
-OCR for QAU 青农教务OCR
+# Verify code OCR
+## Github开源 可能用paddle跑
+### 也可能当作课程作业

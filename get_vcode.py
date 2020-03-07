@@ -22,7 +22,7 @@ class GetVerifyCode:
         self.proxie['https'] = p
 
     def start_process(self, times):
-        sum = 1354
+        sum = 0
         total_num = 0
         print("开始爬取")
         for file_name in range(sum, times):
@@ -30,12 +30,12 @@ class GetVerifyCode:
                 verify_code_response = requests.get(self.ver_code_url, headers=self.headers, proxies=self.proxie)
                 if verify_code_response.status_code == 200:
                     byte_img = BytesIO(verify_code_response.content)
-                    image_name = 'vcode_imgs\\' + str(file_name) + ".png"
+                    image_name = 'vcode_imgs\\' + str(sum) + ".png"
                     a = PIL.Image.open(byte_img)
                     a.save(image_name)
                     sum += 1
-                    time.sleep(0.1)
                     total_num += 1
+                    time.sleep(0.1)
                     if total_num == 300:  # 每30s切换一个代理
                         self.change_poxies()
                         total_num = 0
@@ -43,6 +43,8 @@ class GetVerifyCode:
                 else:
                     print("请求超时1次 等待切换代理")
             except:
+                sum -= 1
+                total_num -= 1
                 self.change_poxies()
                 print("出现未知错误 已直接换代理")
 
